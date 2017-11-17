@@ -31,7 +31,7 @@
 
 	//fuction to get computer to pull word - chooses random word and pushes it into chosen word array
 	function randomword() {
-	computerGuess = computerChoices[Math.floor(Math.random())];
+	computerGuess = computerChoices[Math.floor(computerChoices.length * Math.random())];
 		for (i=0; i < computerGuess.length; i++) {chosenWord.push("_");
 		console.log(computerGuess)
 		}
@@ -81,13 +81,12 @@
 				//run loop to look at each letter indivudually - splice in when correct
 				for (i=0; i < computerGuess.length; i++) {
 					if (UserGuess == computerGuess[i]){
-						console.log("computer guess at " + i + ":" + computerGuess[i]);
-						console.log("true")
+						
 						chosenWord.splice(i, 1, UserGuess)
 
 						document.querySelector("#chosenword").innerHTML = chosenWord;
 					}
-					
+				//create if statement that verifies if any _ are left in array. if there are none prompt a win statement	
 
 				}	
 			}
