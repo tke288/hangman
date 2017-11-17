@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title> Hangman Game</title>
+</head>
+
+<body>
+
+	<!--create HTML output-->
+	<div class="container">
+		<div class="output">
+			<p id="chosenword"></p>
+			<p id="guessed">Guessed Letters: </p>
+			<p id="guessesRemaining"> Remaining Guesses: </p>
+			<p id="wins">Wins: </p>
+			<p id="losses">Losses: </p>
+		</div>
+	</div>
+
+	<!--start scripting-->
+<script>
+	// define variables
+	var computerChoices = ["phone", "apple", "shame", "tears"];
+	var wins = 0;
+	var losses = 0;
+	var guessesRemaining = 10;
+	var guessedSoFar = [];
+	var chosenWord = [];
+
+	//fuction to get computer to pull word - chooses random word and pushes it into chosen word array
+	function randomword() {
+	computerGuess = computerChoices[Math.floor(Math.random())];
+		for (i=0; i < computerGuess.length; i++) {chosenWord.push("_");
+		console.log(computerGuess)
+		}
+	//join command to put space between each letter
+	document.querySelector("#chosenword").innerHTML = chosenWord;///.join("");
+	}
+
+	//create function to reset changed values
+	function reset() {
+		guessesRemaining = 10;
+		guessedSoFar = [];
+		chosenWord = [];
+		document.querySelector("#guessesRemaining").innerHTML = "Guesses Remaining: " + guessesRemaining;
+		document.querySelector("#guessedLetters").innerHTML = "Letters Guessed so far: " + guessedSoFar;
+	}
+
+
+	//trigger fuction
+	randomword();
+
+		//create function that updates guessed letters
+
+	function guessedLetters() {
+		document.querySelector("#guessed").innerHTML = "Letters Guessed so far: " + guessedSoFar;
+	};
+
+
+	//create fuction that recognizes keystrokes for guesses
+
+	document.onkeyup = function (event) {
+		var UserGuess = event.key.toLowerCase();
+		//check against letters  if already used
+		var checkused = guessedSoFar.indexOf (UserGuess);
+
+			//create function that updates guessed letters
+
+		document.querySelector("#guessed").innerHTML = "Letters Guessed so far: " + guessedSoFar + ', ';
+		
+		//deduct guess if wrong and count down guesses remaining
+		if (checkused == -1) {
+			guessesRemaining--;
+			document.querySelector("#guessesRemaining").innerHTML = "Guesses Remaining: " + guessesRemaining;
+			guessedSoFar.push(UserGuess);
+			//verify if any guesses remaining 
+			if (guessesRemaining > 0){
+
+				//run loop to look at each letter indivudually - splice in when correct
+				for (i=0; i < computerGuess.length; i++) {
+					if (UserGuess == computerGuess[i]){
+						console.log("computer guess at " + i + ":" + computerGuess[i]);
+						console.log("true")
+						chosenWord.splice(i, 1, UserGuess)
+
+						document.querySelector("#chosenword").innerHTML = chosenWord;
+					}
+					
+
+				}	
+			}
+			//create what happens if loss - reset
+			else {
+				losses++;
+				document.querySelector("#losses").innerHTML = "Losses: " + losses;
+				alert ("Sorry the answer was " + computerGuess);
+				reset();
+				randomword();
+			}
+		}
+		guessedLetters();
+
+	};
+
+
+</script>
