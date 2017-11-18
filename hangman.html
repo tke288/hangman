@@ -22,7 +22,7 @@
 	<!--start scripting-->
 <script>
 	// define variables
-	var computerChoices = ["phone", "apple", "shame", "tears"];
+	var computerChoices = ["phonebooth", "tabletop", "marchingband"];
 	var wins = 0;
 	var losses = 0;
 	var guessesRemaining = 10;
@@ -45,7 +45,7 @@
 		guessedSoFar = [];
 		chosenWord = [];
 		document.querySelector("#guessesRemaining").innerHTML = "Guesses Remaining: " + guessesRemaining;
-		document.querySelector("#guessedLetters").innerHTML = "Letters Guessed so far: " + guessedSoFar;
+		document.querySelector("#guessed").innerHTML = "Letters Guessed so far: " + guessedSoFar;
 	}
 
 
@@ -87,7 +87,14 @@
 						document.querySelector("#chosenword").innerHTML = chosenWord;
 					}
 				//create if statement that verifies if any _ are left in array. if there are none prompt a win statement	
-
+				var gamewon = chosenWord.indexOf("_");
+					if (gamewon == -1){
+						wins++;
+						document.querySelector("#wins").innerHTML = "Wins: " + wins;
+						alert("You win! The word was " + computerGuess);
+						reset();
+						randomword();
+					}
 				}	
 			}
 			//create what happens if loss - reset
